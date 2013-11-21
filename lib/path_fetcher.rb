@@ -10,10 +10,15 @@ module BswTech
     DOTNETINSTALLER_VERSION = '2.2'
 
     def self.dot_net_installer_base_path
-      downloaded_zip = get_zip_file
-      extract_zip downloaded_zip
-      File.delete downloaded_zip
-      File.rename(File.join(BASE_PATH,'dotNetInstaller 2.2'),DOTNET_INSTALLER_PATH)
+      if not Dir.exists? DOTNET_INSTALLER_PATH
+        downloaded_zip = get_zip_file
+        puts "Extracting ZIP"
+        extract_zip downloaded_zip
+        File.delete downloaded_zip
+        File.rename(File.join(BASE_PATH,'dotNetInstaller 2.2'),DOTNET_INSTALLER_PATH)
+      else
+        puts "Using existing distro at #{DOTNET_INSTALLER_PATH}"
+      end
       DOTNET_INSTALLER_PATH
     end
 
