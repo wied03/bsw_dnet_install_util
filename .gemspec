@@ -6,7 +6,7 @@ testdir="spec"
 
 Gem::Specification.new do |s|
   s.name = "bsw_dnet_install_util"
-  s.files = FileList["#{src}/**/*.rb",
+  s.files = FileList["#{src}/**/*",
                      "#{testdir}/**/*.rb"]
   s.test_files = FileList["#{testdir}/**/*.rb"]
   s.version = ENV['version_number']
