@@ -3,6 +3,10 @@ require 'rspec'
 require 'path_fetcher'
 
 describe BswTech::DnetInstallUtil do
+  after(:each) do
+    #FileUtils::rm_rf 'lib/dotnetinstaller-2.2'
+  end
+
   it 'should return the full path to paraffin exe in the GEM folder' do
     # arrange
 
@@ -15,10 +19,25 @@ describe BswTech::DnetInstallUtil do
 
   # http://code.dblock.org/downloads/dotnetinstaller/dotNetInstaller.2.2.zip
   it "should fetch and expand the DotNetInstaller distro inside the GEM directory and return the path" do
-    true.should == false
+    # arrange
+
+    # act
+    result = BswTech::DnetInstallUtil::dot_net_installer_base_path
+    fileExists = File.exist?(File.join result,"Bin","InstallerLinker.exe")
+
+    # assert
+    expect(result).to eq("#{BswTech::DnetInstallUtil::BASE_PATH}/dotNetInstaller-2.2")
+    expect(fileExists).to be_true
+    expect(File.exists?("#{BswTech::DnetInstallUtil::BASE_PATH}/dotnetinstaller.zip")).to be_false
   end
 
   it "should use the already fetched directory" do
+    # arrange
+
+    # act
+
+    # assert
+
     true.should == false
   end
 end

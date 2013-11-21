@@ -1,3 +1,4 @@
 *.gem
 .idea/workspace.xml
 ._*
+lib/dotNetInstaller*

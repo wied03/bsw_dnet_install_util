@@ -1,12 +1,49 @@
+require 'net/http'
+require 'zip'
+
 module BswTech
   module DnetInstallUtil
     BASE_PATH = File.expand_path(File.dirname(__FILE__))
 
     PARAFFIN_VERSION = '3.6.2.0'
     PARAFFIN_EXE = File.join BASE_PATH, "Paraffin-#{PARAFFIN_VERSION}", 'Paraffin.exe'
+    DOTNETINSTALLER_VERSION = '2.2'
 
-    def dot_net_installer_base_path
-      raise 'not implemented yet'
+    def self.dot_net_installer_base_path
+      downloaded_zip = get_zip_file
+      extract_zip downloaded_zip
+      File.delete downloaded_zip
+      File.rename(File.join(BASE_PATH,'dotNetInstaller 2.2'),DOTNET_INSTALLER_PATH)
+      DOTNET_INSTALLER_PATH
     end
+
+    private
+
+    def self.extract_zip(downloaded_zip)
+      Zip::File.open downloaded_zip do |zipFile|
+        zipFile.each do |f|
+          dir = File.join(BASE_PATH, File.dirname(f.name))
+          FileUtils.mkpath dir
+          zipFile.extract(f, File.join(BASE_PATH, f.name))
+        end
+      end
+    end
+
+    def self.get_zip_file
+      uri = URI "http://code.dblock.org/downloads/dotnetinstaller/dotNetInstaller.2.2.zip"
+      zip = File.join BASE_PATH, 'dotnetinstaller.zip'
+      return zip if File.exist? zip
+      Net::HTTP.start uri.host, uri.port do |http|
+        puts "Downloading DotNet Installer..."
+        resp = http.get uri.request_uri
+        puts "Saving ZIP file to #{zip}"
+        open zip, "wb" do |file|
+          file.write resp.body
+        end
+      end
+      zip
+    end
+
+    DOTNET_INSTALLER_PATH = File.join BASE_PATH, "dotNetInstaller-#{DOTNETINSTALLER_VERSION}"
   end
 end
