@@ -3,11 +3,14 @@ require 'rspec'
 require 'path_fetcher'
 
 describe BswTech::DnetInstallUtil do
-
   it 'should return the full path to paraffin exe in the GEM folder' do
+    # arrange
+
+    # act
+    result = BswTech::DnetInstallUtil::PARAFFIN_EXE
 
     #To change this template use File | Settings | File Templates.
-    true.should == false
+    expect(result).to eq("#{BswTech::DnetInstallUtil::BASE_PATH}/Paraffin-3.6.2.0/Paraffin.exe")
   end
 
   # http://code.dblock.org/downloads/dotnetinstaller/dotNetInstaller.2.2.zip
