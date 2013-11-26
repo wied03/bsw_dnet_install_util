@@ -18,5 +18,5 @@ Gem::Specification.new do |s|
   s.author = "Brady Wied"
   s.email = "brady@bswtechconsulting.com"          
   s.add_runtime_dependency 'windows-pr'
-  s.add_runtime_dependency 'rubyzip', '1.1.0'
+  s.add_runtime_dependency 'rubyzip', '0.9.9'
 end
