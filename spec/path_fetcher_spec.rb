@@ -13,17 +13,27 @@ describe BswTech::DnetInstallUtil do
     # act
     result = BswTech::DnetInstallUtil::PARAFFIN_EXE
 
-    #To change this template use File | Settings | File Templates.
+    # assert
     expect(result).to eq("#{BswTech::DnetInstallUtil::BASE_PATH}/Paraffin-3.6.2.0/Paraffin.exe")
   end
 
+  it 'should return the full path to elevate.exe' do
+    # arrange
+
+    # act
+    result = BswTech::DnetInstallUtil::ELEVATE_EXE
+
+    # assert
+    expect(result).to eq("#{BswTech::DnetInstallUtil::BASE_PATH}/elevate-1.3.0/elevate.exe")
+  end
+
   # http://code.dblock.org/downloads/dotnetinstaller/dotNetInstaller.2.2.zip
-  it "should fetch and expand the DotNetInstaller distro inside the GEM directory and return the path" do
+  it 'should fetch and expand the DotNetInstaller distro inside the GEM directory and return the path' do
     # arrange
 
     # act
     result = BswTech::DnetInstallUtil::dot_net_installer_base_path
-    fileExists = File.exist?(File.join result,"Bin","InstallerLinker.exe")
+    fileExists = File.exist?(File.join result, "Bin", "InstallerLinker.exe")
 
     # assert
     expect(result).to eq("#{BswTech::DnetInstallUtil::BASE_PATH}/dotNetInstaller-2.2")
@@ -31,14 +41,14 @@ describe BswTech::DnetInstallUtil do
     expect(File.exists?("#{BswTech::DnetInstallUtil::BASE_PATH}/dotnetinstaller.zip")).to be_false
   end
 
-  it "should use the already fetched directory" do
+  it 'should use the already fetched directory' do
     # arrange
     BswTech::DnetInstallUtil::dot_net_installer_base_path
     Net::HTTP.stub(:start).and_throw("shouldn't be fetching this twice")
 
     # act
     result = BswTech::DnetInstallUtil::dot_net_installer_base_path
-    fileExists = File.exist?(File.join result,"Bin","InstallerLinker.exe")
+    fileExists = File.exist?(File.join result, "Bin", "InstallerLinker.exe")
 
     # assert
     expect(result).to eq("#{BswTech::DnetInstallUtil::BASE_PATH}/dotNetInstaller-2.2")

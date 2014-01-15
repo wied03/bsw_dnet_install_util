@@ -7,6 +7,8 @@ module BswTech
 
     PARAFFIN_VERSION = '3.6.2.0'
     PARAFFIN_EXE = File.join BASE_PATH, "Paraffin-#{PARAFFIN_VERSION}", 'Paraffin.exe'
+    ELEVATE_VERSION = '1.3.0'
+    ELEVATE_EXE = File.join BASE_PATH, "elevate-#{ELEVATE_VERSION}", 'elevate.exe'
     DOTNETINSTALLER_VERSION = '2.2'
 
     def self.dot_net_installer_base_path
