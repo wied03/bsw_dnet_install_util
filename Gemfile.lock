@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    bsw_dnet_install_util (1.0.0)
+      rubyzip (= 0.9.9)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -31,10 +37,11 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
+  bsw_dnet_install_util!
   ci_reporter
   geminabox
   rake
   rspec
-  rubyzip (= 0.9.9)

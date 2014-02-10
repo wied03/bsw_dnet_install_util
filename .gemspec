@@ -9,14 +9,13 @@ Gem::Specification.new do |s|
   s.files = FileList["#{src}/**/*",
                      "#{testdir}/**/*.rb"]
   s.test_files = FileList["#{testdir}/**/*.rb"]
-  s.version = ENV['version_number']
+  s.version = ENV['version_number'] || '1.0.0'
   s.summary = "Paraffin and dotnetinstaller binaries"
   s.description = "See summary"   
   s.has_rdoc = true
   s.license = 'BSD'  
   s.rdoc_options << '--inline-source' << '--line-numbers'
   s.author = "Brady Wied"
-  s.email = "brady@bswtechconsulting.com"          
-  s.add_runtime_dependency 'windows-pr'
+  s.email = "brady@bswtechconsulting.com"            
   s.add_runtime_dependency 'rubyzip', '0.9.9'
 end
