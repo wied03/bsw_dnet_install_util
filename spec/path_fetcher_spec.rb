@@ -5,6 +5,7 @@ require 'path_fetcher'
 describe BswTech::DnetInstallUtil do
   after(:each) do
     FileUtils::rm_rf 'lib/dotNetInstaller-2.2'
+    FileUtils::rm_rf 'lib/pstools-2.0'
   end
 
   it 'should return the full path to paraffin exe in the GEM folder' do
@@ -54,5 +55,20 @@ describe BswTech::DnetInstallUtil do
     expect(result).to eq("#{BswTech::DnetInstallUtil::BASE_PATH}/dotNetInstaller-2.2")
     expect(fileExists).to be_true
     expect(File.exists?("#{BswTech::DnetInstallUtil::BASE_PATH}/dotnetinstaller.zip")).to be_false
+  end
+
+  it 'should fetch PsTools only once' do
+    # arrange
+
+    # act
+    result = BswTech::DnetInstallUtil::ps_tools_base_path
+    file_exists = File.exist?(File.join result, 'PsExec.exe')
+    Net::HTTP.stub(:start).and_throw("shouldn't be fetching this twice")
+    result = BswTech::DnetInstallUtil::ps_tools_base_path
+
+    # assert
+    expect(result).to eq("#{BswTech::DnetInstallUtil::BASE_PATH}/pstools-2.0")
+    expect(file_exists).to be_true
+    expect(File.exists?("#{BswTech::DnetInstallUtil::BASE_PATH}/PSTools.zip")).to be_false
   end
 end
