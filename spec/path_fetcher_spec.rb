@@ -38,14 +38,14 @@ describe BswTech::DnetInstallUtil do
 
     # assert
     expect(result).to eq("#{BswTech::DnetInstallUtil::BASE_PATH}/dotNetInstaller-2.2")
-    expect(fileExists).to be_true
-    expect(File.exists?("#{BswTech::DnetInstallUtil::BASE_PATH}/dotnetinstaller.zip")).to be_false
+    expect(fileExists).to be true
+    expect(File.exists?("#{BswTech::DnetInstallUtil::BASE_PATH}/dotnetinstaller.zip")).to be false
   end
 
   it 'should use the already fetched directory' do
     # arrange
     BswTech::DnetInstallUtil::dot_net_installer_base_path
-    Net::HTTP.stub(:start).and_throw("shouldn't be fetching this twice")
+	allow(Net::HTTP).to receive(:start).and_throw("shouldn't be fetching this twice")
 
     # act
     result = BswTech::DnetInstallUtil::dot_net_installer_base_path
@@ -53,8 +53,8 @@ describe BswTech::DnetInstallUtil do
 
     # assert
     expect(result).to eq("#{BswTech::DnetInstallUtil::BASE_PATH}/dotNetInstaller-2.2")
-    expect(fileExists).to be_true
-    expect(File.exists?("#{BswTech::DnetInstallUtil::BASE_PATH}/dotnetinstaller.zip")).to be_false
+    expect(fileExists).to be true
+    expect(File.exists?("#{BswTech::DnetInstallUtil::BASE_PATH}/dotnetinstaller.zip")).to be false
   end
 
   it 'should fetch PsTools only once' do
@@ -63,12 +63,12 @@ describe BswTech::DnetInstallUtil do
     # act
     result = BswTech::DnetInstallUtil::ps_tools_base_path
     file_exists = File.exist?(File.join result, 'PsExec.exe')
-    Net::HTTP.stub(:start).and_throw("shouldn't be fetching this twice")
+    allow(Net::HTTP).to receive(:start).and_throw("shouldn't be fetching this twice")
     result = BswTech::DnetInstallUtil::ps_tools_base_path
 
     # assert
     expect(result).to eq("#{BswTech::DnetInstallUtil::BASE_PATH}/pstools-2.0")
-    expect(file_exists).to be_true
-    expect(File.exists?("#{BswTech::DnetInstallUtil::BASE_PATH}/PSTools.zip")).to be_false
+    expect(file_exists).to be true
+    expect(File.exists?("#{BswTech::DnetInstallUtil::BASE_PATH}/PSTools.zip")).to be false
   end
 end
