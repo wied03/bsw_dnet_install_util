@@ -2,3 +2,5 @@
 .idea/workspace.xml
 ._*
 lib/dotNetInstaller*
+# this is a library
+Gemfile.lock
