@@ -1,5 +1,5 @@
 require 'net/http'
-require 'zip/zip'
+require 'zip'
 
 module BswTech
   module DnetInstallUtil
@@ -43,11 +43,11 @@ module BswTech
 
     def self.extract_zip(downloaded_zip,base_path)
       puts "Extracting ZIP to #{base_path}"
-      Zip::ZipFile.open downloaded_zip do |zipFile|
-        zipFile.entries.each do |f|
-          dir = File.join(base_path, File.dirname(f.name))
+      Zip::File.open downloaded_zip do |zipFile|
+        zipFile.each do |entry|
+          dir = File.join(base_path, File.dirname(entry.name))
           FileUtils.mkpath dir
-          zipFile.extract(f, File.join(base_path, f.name))
+          entry.extract(File.join(base_path, entry.name))
         end
       end
     end

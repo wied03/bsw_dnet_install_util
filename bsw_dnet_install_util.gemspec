@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
   s.rdoc_options << '--inline-source' << '--line-numbers'
   s.author = "Brady Wied"
   s.email = "brady@bswtechconsulting.com"            
-  s.add_runtime_dependency 'rubyzip', '0.9.9'
+  s.add_runtime_dependency 'rubyzip', '~> 1.0'
 end
